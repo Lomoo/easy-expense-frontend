@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+// Set your brand colors
+$light-blue: #119DA4;
+$charcoal: #3C4858;
+$rich-black: #011627;
+$beige-light: #d0d1cd;
+$beige-lighter: #eff0eb;
+
+// Update Bulma's global variables
+$family-sans-serif: 'Nunito', sans-serif;
+$grey-dark: $charcoal;
+$grey-light: $beige-light;
+$primary: $light-blue;
+$link: $rich-black;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+$money-orange:#ffa726;
+
+// Update some of Bulma's component variables
+$body-background-color: $beige-lighter;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+// Import only what you need from Bulma
+@import '../node_modules/bulma/sass/utilities/_all.sass';
+@import '../node_modules/bulma/sass/base/_all.sass';
+@import '../node_modules/bulma/sass/elements/_all.sass';
+@import '../node_modules/bulma/sass/components/_all.sass';
+@import '../node_modules/bulma/sass/layout/_all.sass';
+@import '../node_modules/bulma/sass/grid/_all.sass';
+@import '../node_modules/bulma/sass/form/_all.sass';
+@import '@creativebulma/bulma-divider';
+
+//custom styles for quick usage
+
+.text-is-aligned-right{
+    text-align: right;
+}
+.text-is-aligned-left{
+    text-align: left;
+}
+.has-text-money{
+    color: $money-orange;
+}

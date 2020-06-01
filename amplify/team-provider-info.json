@@ -1,0 +1,22 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-easyexpensetracker-dev-235411-authRole",
+            "UnauthRoleArn": "arn:aws:iam::484893491103:role/amplify-easyexpensetracker-dev-235411-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::484893491103:role/amplify-easyexpensetracker-dev-235411-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-easyexpensetracker-dev-235411-deployment",
+            "UnauthRoleName": "amplify-easyexpensetracker-dev-235411-unauthRole",
+            "StackName": "amplify-easyexpensetracker-dev-235411",
+            "StackId": "arn:aws:cloudformation:us-east-2:484893491103:stack/amplify-easyexpensetracker-dev-235411/8db1a540-94e6-11ea-8055-0abbead6f3aa",
+            "AmplifyAppId": "d1ptty9kqj2g8r"
+        },
+        "categories": {
+            "auth": {
+                "easyexpensetracker0c66fd68": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\",\"client_id\":\"1047537322567-uf4anh3jshep4lc6d01luv8gsnigf4b1.apps.googleusercontent.com\",\"client_secret\":\"j_m5JoYlN9SoRV38C9Y0KjAF\"}]"
+                }
+            }
+        }
+    }
+}
