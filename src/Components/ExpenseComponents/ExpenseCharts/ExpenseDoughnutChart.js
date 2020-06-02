@@ -34,7 +34,7 @@ const otherOpts = {
   },
 };
 
-export const DoughnutChart = () => {
+export const ExpenseDoughnutChart = () => {
   const { expenses, incomes } = useContext(GlobalContext);
   const [chartState, setChartState] = useState(initialChartState);
 
@@ -70,17 +70,7 @@ export const DoughnutChart = () => {
   }, [expenses]);
 
   return (
-    <div className="columns">
-      <div className="column is-two-thirds">
-        <div className="box">
-          <div className="title has-text-centered"> Your Expenses</div>
-          <Doughnut data={chartState} legend={legendOpts} options={otherOpts} />
-        </div>
-      </div>
-      <div className="column is-one-third  ">
-        <div className="box"></div>
-      </div>
-    </div>
+    <Doughnut data={chartState} legend={legendOpts} options={otherOpts} />
   );
 };
 

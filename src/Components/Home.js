@@ -10,7 +10,7 @@ import { ExpenseCard } from "./ExpenseComponents/SummaryCards/ExpenseCard";
 import { NetSavedCard } from "./ExpenseComponents/SummaryCards/NetSavedCard";
 import { BudgetCard } from "./ExpenseComponents/SummaryCards/BudgetCard";
 import  {IncomeExpenseTabs} from "./ExpenseComponents/AllTabs/IncomeExpenseTabs";
-import { DoughnutChart } from "./ExpenseComponents/ExpenseCharts/DoughnutChart";
+import { ExpenseChartWrapper } from "./ExpenseComponents/ExpenseCharts/ExpenseChartWrapper";
 import { AddNewUser } from "./Auth/AddNewUser";
 const LargerContainer = styled.div.attrs({
   className: "container is-fullhd",
@@ -27,7 +27,6 @@ export const Home = () => {
   return (
     <GlobalProvider>
       <AppNav />
-      <StickyAddExpense />
       <Conditional if={user && user.signInUserSession}>
         <section className="section">
           <LargerContainer>
@@ -54,7 +53,7 @@ export const Home = () => {
         </section>
         <section className="section">
           <LargerContainer>
-          <DoughnutChart />
+          <ExpenseChartWrapper />
           </LargerContainer>
         </section>
       

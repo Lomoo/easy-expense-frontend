@@ -69,7 +69,7 @@ export const IncomeTable = ({}) => {
     {
       title: "Amount",
       field: "income",
-      initialEditValue: "Amount",
+      type: "numeric"
     },
   ]);
 
@@ -82,12 +82,17 @@ export const IncomeTable = ({}) => {
             header: {
               actions: "",
             },
+            body: {
+              emptyDataSourceMessage :"Income not found, add one to get started",
+            },
           }}
           className="is-narrow"
           options={{
             search: true,
             showTitle: false,
             actionsColumnIndex: -1,
+            draggable: false,
+            sorting: false,
           }}
           icons={tableIcons}
           title="Incomes"

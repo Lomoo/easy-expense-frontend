@@ -19,6 +19,7 @@
     "aws-amplify-react": "^4.1.11",
     "bulma": "^0.8.2",
     "chart.js": "^2.9.3",
+    "chartjs-plugin-datalabels": "^0.7.0",
     "font-awesome": "^4.7.0",
     "material-table": "^1.58.2",
     "node-sass": "^4.14.1",
@@ -40,7 +41,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "https://easy-expense-server.herokuapp.com",
   "eslintConfig": {
     "extends": "react-app"
   },

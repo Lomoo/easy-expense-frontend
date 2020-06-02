@@ -70,6 +70,10 @@ export const ExpenseTable = ({ categoryId }) => {
     {
       title: "Amount",
       field: "expenseAmount",
+      type: "numeric",
+      cellStyle: {
+        textAlign: "left"
+      },
     },
   ]);
 
@@ -83,12 +87,17 @@ export const ExpenseTable = ({ categoryId }) => {
             header: {
               actions: "",
             },
+            body: {
+              emptyDataSourceMessage :"Expense not found, add one to get started",
+            },
           }}
-          className="is-narrow"
+          
           options={{
             search: true,
             showTitle: false,
             actionsColumnIndex: -1,
+            draggable: false,
+            sorting: false,
           }}
           icons={tableIcons}
           columns={columns}
