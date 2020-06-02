@@ -44,7 +44,7 @@ function reducer(state, action) {
 }
 
 
-async function cognitoSignUp({username,password,email}, updateFormType){
+async function cognitoSignUp({username,password,email}, updateFormType, form){
   try{
     await Auth.signUp({
       username,password,attributes:{email}
@@ -52,6 +52,9 @@ async function cognitoSignUp({username,password,email}, updateFormType){
     console.log("user signed up successfully");
     updateFormType('confirmSignUp')
   } catch(err){
+    if(err.name="UsernameExistsException"){
+      return err.name;
+    }
     console.log("error signing up...", err)
 
   }
@@ -67,12 +70,23 @@ async function signIn( username, password ) {
 }
 
 async function confirmSignUp({username, password, confirmationCode}, updateFormType){
+
   try {
-    const test = await Auth.confirmSignUp(username, confirmationCode);
+    await Auth.confirmSignUp(username, confirmationCode);
     console.log('confirm sign up success!');
     signIn(username,password);
   } catch (err) {
     console.log('error signing up..', err)
+  }
+}
+
+//Only called after a new user signs up 
+async function addUserAfterSignIn(){
+  try{
+    const res = await Auth.currentAuthenticatedUser();
+    console.log(res);
+  } catch(err){
+    console.log("Unable to add user", err);
   }
 }
 
@@ -81,13 +95,17 @@ export default function SignUp() {
   const [formState, updateFormState] = useReducer(reducer, initialFormState)
   const [formType, updateFormType] = useState('signUp');
   const { user, userLoading } = useContext(UserContext);
-
+  const form = useForm({
+    validationSchema: SignupSchema
+  });
+  const { register, handleSubmit, errors, setError } = form;
 
   function renderForm() {
     switch(formType) {
       case 'signUp':
         return (
           <SignUpForm
+          form={form}
           cognitoSignUp={() => cognitoSignUp(formState, updateFormType)}
           updateFormState={e => updateFormState({ type: 'updateFormState', e })}
         />
@@ -146,13 +164,18 @@ function ConfirmSignUp(props){
 }
 
 function SignUpForm(props){
-  const { register, handleSubmit, errors } = useForm({
-    validationSchema: SignupSchema
-  }); // initialise use-form hook
+
+
+  // const { register, handleSubmit, errors, setError } = useForm({
+  //   validationSchema: SignupSchema
+  // }); // initialise use-form hook
   
 
   const onSubmit = () => {
-    props.cognitoSignUp();
+    const res = props.cognitoSignUp(props.form);
+    if(res === "UsernameExistsException"){
+      props.form.setError("username", "incorrect", "Username already exists");
+    }
   };
 
   return(
@@ -170,42 +193,42 @@ function SignUpForm(props){
           <Authbuttons />
           <div className="divider">OR</div>
           <SocialSignInText>Sign up with a new account</SocialSignInText>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={props.form.handleSubmit(onSubmit)}>
             <div className="field">
             <label className="label">Username</label>
               <div className="control">
                 
-                <input className={`input ${errors.username ? "is-danger" : "is-info"}`}
-                ref={register}
+                <input className={`input ${props.form.errors.username ? "is-danger" : "is-info"}`}
+                ref={props.form.register}
                 name="username"
                 onChange={e => {e.persist();props.updateFormState(e)}}
                 type="text" 
                 placeholder="Username"/>
-                {errors.username && <p className="help is-danger">{errors.username.message}</p>}
+                {props.form.errors.username && <p className="help is-danger">{props.form.errors.username.message}</p>}
               </div>
             </div>
             <div className="field">
             <label className="label">Email</label>
               <div className="control">
-                <input className={`input ${errors.email ? "is-danger" : "is-info"}`}
-                ref={register}
+                <input className={`input ${props.form.errors.email ? "is-danger" : "is-info"}`}
+                ref={props.form.register}
                 name="email"
                 onChange={e => {e.persist();props.updateFormState(e)}}
                 type="email" 
                 placeholder="email@host.com"/>
-                {errors.email && <p className="help is-danger">{errors.email.message}</p>}
+                {props.form.errors.email && <p className="help is-danger">{props.form.errors.email.message}</p>}
               </div>
             </div>
             <div className="field">
             <label className="label">Password</label>
               <div className="control">
-                <input className={`input ${errors.password ? "is-danger" : "is-info"}`}
-                ref={register}
+                <input className={`input ${props.form.errors.password ? "is-danger" : "is-info"}`}
+                ref={props.form.register}
                 name="password"
                 type="password" 
                 onChange={e => {e.persist();props.updateFormState(e)}}
                 placeholder="password"/>
-                {errors.password && <p className="help is-danger">{errors.password.message}</p>}
+                {props.form.errors.password && <p className="help is-danger">{props.form.errors.password.message}</p>}
               </div>
             </div>
             <button type="submit" className="button is-primary is-fullwidth"> Sign Up </button>
