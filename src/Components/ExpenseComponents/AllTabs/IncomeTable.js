@@ -48,7 +48,17 @@ export const IncomeTable = ({}) => {
     loading,
     updateIncome,
     deleteIncome,
+    addIncome,
   } = useContext(GlobalContext);
+
+  const addIncomeToRow = (newData) => {
+    const newIncome = {
+      id: Math.floor(Math.random() * 100000),
+      description: newData.description,
+      income: newData.income,
+    };
+    addIncome(newIncome);
+  };
 
   useEffect(() => {
     getIncomes();
@@ -59,7 +69,7 @@ export const IncomeTable = ({}) => {
     {
       title: "Amount",
       field: "income",
-      initialEditValue: "$ Amount",
+      initialEditValue: "Amount",
     },
   ]);
 
@@ -88,7 +98,7 @@ export const IncomeTable = ({}) => {
               new Promise((resolve, reject) => {
                 setTimeout(() => {
                   setData([...data, newData]);
-
+                  addIncomeToRow(newData);
                   resolve();
                 }, 1000);
               }),

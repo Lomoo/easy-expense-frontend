@@ -41,16 +41,22 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-export const ExpenseTable = ({categoryId}) => {
-  const { expenses, getExpenses, loading, deleteExpense, updateExpense, addExpense } = useContext(GlobalContext);
+export const ExpenseTable = ({ categoryId }) => {
+  const {
+    expenses,
+    getExpenses,
+    loading,
+    deleteExpense,
+    updateExpense,
+    addExpense,
+  } = useContext(GlobalContext);
 
   const addExpenseToRow = (newData) => {
-
     const newExpense = {
       id: Math.floor(Math.random() * 100000),
       description: newData.description,
       expenseAmount: newData.expenseAmount,
-      expenseCategory: categoryId
+      expenseCategory: categoryId,
     };
     addExpense(newExpense);
   };
@@ -67,23 +73,22 @@ export const ExpenseTable = ({categoryId}) => {
     },
   ]);
 
-
   const [data, setData] = useState([]);
 
   return (
     <>
       {!loading && (
         <MaterialTable
-        localization={{
-          header: {
-              actions: ''
-          },
-      }}
+          localization={{
+            header: {
+              actions: "",
+            },
+          }}
           className="is-narrow"
           options={{
             search: true,
-            showTitle: false ,
-            actionsColumnIndex: -1
+            showTitle: false,
+            actionsColumnIndex: -1,
           }}
           icons={tableIcons}
           columns={columns}
@@ -93,7 +98,7 @@ export const ExpenseTable = ({categoryId}) => {
               new Promise((resolve, reject) => {
                 setTimeout(() => {
                   setData([...data, newData]);
-                  addExpenseToRow(newData, categoryId)
+                  addExpenseToRow(newData, categoryId);
                   resolve();
                 }, 1000);
               }),
@@ -103,7 +108,7 @@ export const ExpenseTable = ({categoryId}) => {
                   const dataUpdate = [...data];
                   const index = oldData.tableData.id;
                   dataUpdate[index] = newData;
-                  updateExpense(newData)
+                  updateExpense(newData);
                   resolve();
                 }, 1000);
               }),
@@ -120,7 +125,11 @@ export const ExpenseTable = ({categoryId}) => {
           }}
         />
       )}
-      {loading && <progress className="progress is-small is-primary" max="100">15%</progress>}
+      {loading && (
+        <progress className="progress is-small is-primary" max="100">
+          15%
+        </progress>
+      )}
     </>
   );
 };

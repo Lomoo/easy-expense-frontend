@@ -1,6 +1,7 @@
 import { Doughnut, Pie, defaults } from "react-chartjs-2";
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../Context/GlobalState";
+import datalabels from "chartjs-plugin-datalabels";
 
 const initialChartState = {
   labels: ["Groceries", "Eating Out", "Misc/Variable", "Fixed", "Random"],
@@ -17,6 +18,20 @@ const initialChartState = {
       ],
     },
   ],
+};
+const legendOpts = {
+  display: true,
+  position: "left",
+  fullWidth: true,
+};
+const otherOpts = {
+  plugins: {
+    datalabels: {
+      display: true,
+      color: "white",
+      fontWeight : "strong"
+    },
+  },
 };
 
 export const DoughnutChart = () => {
@@ -58,7 +73,8 @@ export const DoughnutChart = () => {
     <div className="columns">
       <div className="column is-two-thirds">
         <div className="box">
-          <Pie data={chartState} />
+          <div className="title has-text-centered"> Your Expenses</div>
+          <Doughnut data={chartState} legend={legendOpts} options={otherOpts} />
         </div>
       </div>
       <div className="column is-one-third  ">
