@@ -7,6 +7,7 @@ import AppNav from "../AppNav";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 import * as yup from 'yup';
+import { GlobalContext } from "../Context/GlobalState";
 
 const SignUpFormCard = styled.div`
   padding-top: 10%;
@@ -54,9 +55,9 @@ async function cognitoSignUp({username,password,email}, updateFormType, form){
   } catch(err){
     if(err.name="UsernameExistsException"){
       return err.name;
+    }else{
+      console.log("error signing up...", err)
     }
-    console.log("error signing up...", err)
-
   }
 }
 
@@ -64,6 +65,7 @@ async function signIn( username, password ) {
   try {
     await Auth.signIn(username, password)
     console.log('sign in success!')
+    AddNewUser();
   } catch (err) {
     console.log('error signing up..', err)
   }
@@ -75,30 +77,51 @@ async function confirmSignUp({username, password, confirmationCode}, updateFormT
     await Auth.confirmSignUp(username, confirmationCode);
     console.log('confirm sign up success!');
     signIn(username,password);
+    return(<Redirect to='/'  />)
   } catch (err) {
     console.log('error signing up..', err)
   }
 }
-
-//Only called after a new user signs up 
-async function addUserAfterSignIn(){
+async function AddNewUser(){
   try{
-    const res = await Auth.currentAuthenticatedUser();
-    console.log(res);
+    const user = await Auth.currentAuthenticatedUser();
+    addUser(user.attributes.sub);
   } catch(err){
-    console.log("Unable to add user", err);
+    console.log("unable to add user : " ,err)
   }
 }
+
+async function addUser(userSub) {
+  try {
+    const res = await fetch(`/api/users`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: userSub,
+      }),
+    });
+    
+  } catch (e) {
+    console.log("unable to create user")
+  }
+};
 
 export default function SignUp() {
 
   const [formState, updateFormState] = useReducer(reducer, initialFormState)
   const [formType, updateFormType] = useState('signUp');
   const { user, userLoading } = useContext(UserContext);
+  const { addUser } = useContext(GlobalContext)
   const form = useForm({
     validationSchema: SignupSchema
   });
   const { register, handleSubmit, errors, setError } = form;
+
+
+
 
   function renderForm() {
     switch(formType) {
@@ -114,6 +137,7 @@ export default function SignUp() {
         return (
           
           <ConfirmSignUp
+            addUser = {addUser}
             confirmSignUp={() => confirmSignUp(formState, updateFormType)}
             updateFormState={e => updateFormState({ type: 'updateFormState', e })}
           />
@@ -163,16 +187,11 @@ function ConfirmSignUp(props){
   )
 }
 
-function SignUpForm(props){
+ function SignUpForm(props){
 
 
-  // const { register, handleSubmit, errors, setError } = useForm({
-  //   validationSchema: SignupSchema
-  // }); // initialise use-form hook
-  
-
-  const onSubmit = () => {
-    const res = props.cognitoSignUp(props.form);
+  const onSubmit = async () => {
+    const res = await props.cognitoSignUp(props.form);
     if(res === "UsernameExistsException"){
       props.form.setError("username", "incorrect", "Username already exists");
     }

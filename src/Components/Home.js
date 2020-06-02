@@ -10,8 +10,8 @@ import { ExpenseCard } from "./ExpenseComponents/SummaryCards/ExpenseCard";
 import { NetSavedCard } from "./ExpenseComponents/SummaryCards/NetSavedCard";
 import { BudgetCard } from "./ExpenseComponents/SummaryCards/BudgetCard";
 import  {IncomeExpenseTabs} from "./ExpenseComponents/AllTabs/IncomeExpenseTabs";
-import { DoughnutChart } from "./ExpenseComponents/ExpenseCharts/DoughnutChart"
-
+import { DoughnutChart } from "./ExpenseComponents/ExpenseCharts/DoughnutChart";
+import { AddNewUser } from "./Auth/AddNewUser";
 const LargerContainer = styled.div.attrs({
   className: "container is-fullhd",
 })`
@@ -22,7 +22,7 @@ const Conditional = (props) => {
 };
 
 export const Home = () => {
-  const { user, userLoading } = useContext(UserContext);
+  const { user, userLoading, newUser } = useContext(UserContext);
 
   return (
     <GlobalProvider>
@@ -57,6 +57,7 @@ export const Home = () => {
           <DoughnutChart />
           </LargerContainer>
         </section>
+      
       </Conditional>
       <Conditional if={!user && !userLoading}>
         <div>not logging, sign in to see the good stuff</div>
