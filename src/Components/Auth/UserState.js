@@ -1,21 +1,17 @@
 import React, { createContext, useReducer, useEffect, useContext, useState } from "react";
 import { Hub, Auth } from "aws-amplify";
-import { GlobalContext } from "../Context/GlobalState";
-
 const initialUserState = {
   user: null,
   userLoading: true,
   userSub: null,
-  newUser: false,
 };
 // create context
 export const UserContext = createContext(initialUserState);
 
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(UserReducer, initialUserState);
+  
 
-
-  const { addUser } = useContext(GlobalContext);
   useEffect(() => {
     // set listener for auth events
     Hub.listen("auth", (data) => {
@@ -27,30 +23,30 @@ export const UserProvider = ({ children }) => {
             user: payload.data,
           })
         );
-        // setImmediate(
-        //   () => window.history.pushState({}, null, "http://localhost:3000/"),
-        //   window.location.reload(false)
-        // );
+        
       }
-      // this listener is needed for form sign ups since the OAuth will redirect & reload
+      
       if (payload.event === "signOut") {
         setTimeout(
           () =>
             dispatch({
-              type: "setUser",
+              type: "signUserOut",
               user: null,
+              userSub: null,
             }),
           350
         );
       }
-      //only set if the user just created an account
-      if (payload.event == "signUp") {
+      if (payload.event === "signUp"){
+        console.log('hi');
       }
     });
+
     // we check for the current user unless there is a redirect to ?signedIn=true
-    if (!window.location.search.includes("?signedin=true")) {
+
+      //console.log("hi at check user");
       checkUser(dispatch);
-    }
+    
   }, []);
 
   return (
@@ -59,7 +55,6 @@ export const UserProvider = ({ children }) => {
         user: state.user,
         userLoading: state.userLoading,
         userSub: state.userSub,
-        newUser: state.newUser,
       }}
     >
       {children}
@@ -74,8 +69,14 @@ function UserReducer(state, action) {
         ...state,
         user: action.user,
         userLoading: false,
-        userSub: action.userSub,
+        userSub: action.user.signInUserSession.idToken.payload.sub,
       };
+    case "signUserOut" :
+      return{
+        ...state,
+        user: action.user,
+        userSub : action.userSub,
+      }
     case "loaded":
       return {
         ...state,
@@ -92,6 +93,25 @@ async function checkUser(dispatch) {
     dispatch({ type: "setUser", user });
   } catch (err) {
     dispatch({ type: "loaded" });
+  }
+}
+
+async function addUser(userSub) {
+  console.log("called here");
+  console.log(userSub);
+  try {
+    await fetch(`/api/users`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: userSub,
+      }),
+    });
+  } catch (err) {
+    console.log("Unable to create user", err);
   }
 }
 

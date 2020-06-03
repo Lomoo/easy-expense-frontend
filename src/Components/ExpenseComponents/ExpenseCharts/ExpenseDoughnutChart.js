@@ -2,6 +2,12 @@ import { Doughnut, Pie, defaults } from "react-chartjs-2";
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../Context/GlobalState";
 import datalabels from "chartjs-plugin-datalabels";
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile,
+} from "react-device-detect";
 
 const initialChartState = {
   labels: ["Groceries", "Eating Out", "Misc/Variable", "Fixed", "Random"],
@@ -21,15 +27,22 @@ const initialChartState = {
 };
 const legendOpts = {
   display: true,
-  position: "left",
+  position: "top",
   fullWidth: true,
 };
+const legendOptsMobile = {
+  display: true,
+  position: "top",
+  fullWidth: true,
+};
+
 const otherOpts = {
+  maintainAspectRatio: false,
   plugins: {
     datalabels: {
-      display: true,
+      display: false,
       color: "white",
-      fontWeight : "strong"
+      fontWeight: "strong",
     },
   },
 };
@@ -70,7 +83,20 @@ export const ExpenseDoughnutChart = () => {
   }, [expenses]);
 
   return (
-    <Doughnut data={chartState} legend={legendOpts} options={otherOpts} />
+    <>
+      {/* <BrowserView> */}
+      <article className="canvas-container">
+        <Doughnut data={chartState} legend={legendOpts} options={otherOpts} />
+      </article>
+
+      {/* </BrowserView>
+      <MobileView>
+        <Doughnut data={chartState} legend={legendOptsMobile} options={otherOpts} />
+      </MobileView>
+      {isMobile && 
+        <div> mobile</div>
+      } */}
+    </>
   );
 };
 

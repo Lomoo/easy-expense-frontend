@@ -11,6 +11,13 @@ box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
   padding: 15px;
   margin-top: -30px;
   border-radius: 3px;
+  & ul {
+    border-bottom-style: none;
+  }
+
+  & a {
+    border-bottom-style: none;
+  }
 `;
 export const ExpenseChartWrapper = () => {
   return (

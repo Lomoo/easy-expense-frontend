@@ -23,7 +23,7 @@ const IconBox2 = styled.div.attrs({
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(255, 152, 0,.4);
 `;
 export const BudgetCard = () => {
-  const { incomes, loading, expenses } = useContext(GlobalContext);
+  const { incomes, expenses } = useContext(GlobalContext);
 
   const totalExpenses = expenses.map((expense) => expense.expenseAmount);
   const totalIncome = incomes.map((income) => income.income);

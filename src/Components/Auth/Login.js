@@ -64,7 +64,7 @@ export default function Login() {
                   </SocialSignInText>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="field">
-                      <label className="label">Username</label>
+                      <label className="label">Email</label>
                       <div className="control">
                         <input
                           className={`input ${
@@ -77,7 +77,7 @@ export default function Login() {
                             updateUserState(e.target.value);
                           }}
                           type="text"
-                          placeholder="Username"
+                          placeholder="email"
                         />
                         {errors.username && (
                           <p className="help is-danger">

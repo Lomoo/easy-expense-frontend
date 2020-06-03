@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "easyexpensetracker0c66fd68_identitypool_0c66fd68",
+    "identityPoolName": "easyexpense2b95c079_identitypool_2b95c079",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "easyex0c66fd68",
-    "userPoolName": "easyexpensetracker0c66fd68_userpool_0c66fd68",
+    "resourceNameTruncated": "easyex2b95c079",
+    "userPoolName": "easyexpense2b95c079_userpool_2b95c079",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -18,7 +18,8 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+        "email",
+        "name"
     ],
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
@@ -28,9 +29,9 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "easyex0c66fd68_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "easyex2b95c079_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "easyexpensetracker0c66fd68",
+    "resourceName": "easyexpense2b95c079",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -46,12 +47,15 @@
     },
     "useDefault": "defaultSocial",
     "hostedUI": true,
+    "usernameAttributes": [
+        "email"
+    ],
     "triggers": "{}",
-    "hostedUIDomainName": "easyexpensetracker0c66fd68-0c66fd68",
+    "hostedUIDomainName": "easyexpense2b95c079-2b95c079",
     "authProvidersUserPool": [
         "Google"
     ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"sub\"}}]",
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
     "userPoolGroupList": [],
     "parentStack": {

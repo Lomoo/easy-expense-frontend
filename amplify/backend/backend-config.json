@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"easyexpensetracker0c66fd68": {
+		"easyexpense2b95c079": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []

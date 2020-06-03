@@ -225,7 +225,22 @@ export const GlobalProvider = ({ children }) => {
       });
     }
   }
-
+  async function addUser(userSub) {
+    try {
+      await fetch(`/api/users`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: userSub,
+        }),
+      });
+    } catch (e) {
+      console.log("unable to create user");
+    }
+  }
 
   return (
     <GlobalContext.Provider
@@ -242,6 +257,7 @@ export const GlobalProvider = ({ children }) => {
         updateIncome,
         deleteIncome,
         addIncome,
+        addUser,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppNav from "./AppNav";
 import "../App.scss";
 import { StickyAddExpense } from "./ExpenseComponents/StickyAddExpense";
@@ -9,9 +9,10 @@ import { IncomeCard } from "./ExpenseComponents/SummaryCards/IncomeCard";
 import { ExpenseCard } from "./ExpenseComponents/SummaryCards/ExpenseCard";
 import { NetSavedCard } from "./ExpenseComponents/SummaryCards/NetSavedCard";
 import { BudgetCard } from "./ExpenseComponents/SummaryCards/BudgetCard";
-import  {IncomeExpenseTabs} from "./ExpenseComponents/AllTabs/IncomeExpenseTabs";
+import { IncomeExpenseTabs } from "./ExpenseComponents/AllTabs/IncomeExpenseTabs";
 import { ExpenseChartWrapper } from "./ExpenseComponents/ExpenseCharts/ExpenseChartWrapper";
-import { AddNewUser } from "./Auth/AddNewUser";
+import { GlobalContext } from "./Context/GlobalState";
+
 const LargerContainer = styled.div.attrs({
   className: "container is-fullhd",
 })`
@@ -21,8 +22,34 @@ const Conditional = (props) => {
   return !!props.if && props.children;
 };
 
+
 export const Home = () => {
-  const { user, userLoading, newUser } = useContext(UserContext);
+  const { user, userLoading, userSub } = useContext(UserContext);
+  const { expenses, incomes } = useContext(GlobalContext);
+
+  async function addUser(userSub) {
+    try {
+      await fetch(`/api/users`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: userSub,
+        }),
+      });
+    } catch (e) {
+      console.log("unable to create user");
+    }
+  }
+
+  useEffect(() => {
+
+    if (userSub != null && (expenses.length < 1 || incomes.length < 1)) {
+        addUser(userSub);
+    }
+  }, [userSub]);
 
   return (
     <GlobalProvider>
@@ -48,15 +75,14 @@ export const Home = () => {
         </section>
         <section className="section">
           <LargerContainer>
-          <IncomeExpenseTabs />
+            <IncomeExpenseTabs />
           </LargerContainer>
         </section>
         <section className="section">
           <LargerContainer>
-          <ExpenseChartWrapper />
+            <ExpenseChartWrapper />
           </LargerContainer>
         </section>
-      
       </Conditional>
       <Conditional if={!user && !userLoading}>
         <div>not logging, sign in to see the good stuff</div>

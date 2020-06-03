@@ -20,7 +20,7 @@ export const AppNav = () => {
       <div className="navbar-brand">
         <a className="navbar-item" href="https://bulma.io">
           <img
-            src="https://bulma.io/images/bulma-logo.png"
+            src="/easyexpense-logo.png"
             width="112"
             height="28"
           />
@@ -51,7 +51,7 @@ export const AppNav = () => {
             Home
           </NavLink>
 
-          <div className="navbar-item has-dropdown is-hoverable">
+          {/* <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link">More</a>
             <div className="navbar-dropdown is-boxed">
               <a className="navbar-item">About</a>
@@ -60,7 +60,7 @@ export const AppNav = () => {
               <hr className="navbar-divider" />
               <a className="navbar-item">Report an issue</a>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="navbar-end">
