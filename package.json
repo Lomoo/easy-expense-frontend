@@ -1,6 +1,9 @@
 {
   "name": "easy-expense",
   "version": "0.1.0",
+  "engines": {
+    "node": "13.8.0"
+  },
   "private": true,
   "dependencies": {
     "@aws-amplify/cli": "^4.20.0",
@@ -37,7 +40,7 @@
     "yup": "^0.29.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set HTTPS=true&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
