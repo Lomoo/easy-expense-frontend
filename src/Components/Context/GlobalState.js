@@ -9,6 +9,7 @@ const initialState = {
   loading: true,
 };
 
+const baseHttpUrl = "https://easy-expense-server.herokuapp.com"
 // create context
 export const GlobalContext = createContext(initialState);
 
@@ -21,9 +22,9 @@ export const GlobalProvider = ({ children }) => {
 
   async function getExpenses() {
     try {
-      const getUrl =
-        "/api/expenses/" + user.signInUserSession.idToken.payload.sub;
-      const response = await fetch(getUrl);
+      const apiUrl =
+      baseHttpUrl + "/api/expenses/" + user.signInUserSession.idToken.payload.sub;
+      const response = await fetch(apiUrl);
       const body = await response.json();
 
       dispatch({
@@ -41,8 +42,8 @@ export const GlobalProvider = ({ children }) => {
 
   async function updateExpense(expense) {
     try {
-      
-      const res = await fetch("/api/expenses/update", {
+      const apiUrl = baseHttpUrl + "/api/expenses/update";
+      const res = await fetch(apiUrl, {
         method: "PUT",
         headers: {
           Accept: "application/json",
@@ -75,7 +76,8 @@ export const GlobalProvider = ({ children }) => {
   }
   async function addExpense(expense) {
     try {
-      const res = await fetch(`/api/expenses/`, {
+      const apiUrl = baseHttpUrl + "/api/expenses/";
+      const res = await fetch(apiUrl, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -107,7 +109,8 @@ export const GlobalProvider = ({ children }) => {
   }
   async function deleteExpense(id) {
     try {
-      await fetch(`/api/expenses/${id}`, {
+      const apiUrl = baseHttpUrl + `/api/expenses/${id}`;
+      await fetch(apiUrl, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -127,9 +130,8 @@ export const GlobalProvider = ({ children }) => {
   }
   async function getIncomes() {
     try {
-      const getUrl =
-        "/api/incomes/" + user.signInUserSession.idToken.payload.sub;
-      const response = await fetch(getUrl);
+      const apiUrl = baseHttpUrl + "/api/incomes/" + user.signInUserSession.idToken.payload.sub;
+      const response = await fetch(apiUrl);
       const body = await response.json();
 
       dispatch({
@@ -146,8 +148,8 @@ export const GlobalProvider = ({ children }) => {
   }
   async function updateIncome(income) {
     try {
-      const putURL = "/api/incomes/update/" + income.id + "/" +  user.signInUserSession.idToken.payload.sub;
-      const res = await fetch(putURL, {
+      const apiUrl = baseHttpUrl + "/api/incomes/update/" + income.id + "/" +  user.signInUserSession.idToken.payload.sub;
+      const res = await fetch(apiUrl, {
         method: "PUT",
         headers: {
           Accept: "application/json",
@@ -178,7 +180,8 @@ export const GlobalProvider = ({ children }) => {
 
   async function addIncome(income) {
     try {
-      const res = await fetch(`/api/incomes/`, {
+      const apiUrl = baseHttpUrl + "/api/incomes/";
+      const res = await fetch(apiUrl, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -206,8 +209,9 @@ export const GlobalProvider = ({ children }) => {
     }
   }
   async function deleteIncome(id) {
+    const apiUrl = baseHttpUrl + `/api/incomes/${id}/${user.signInUserSession.idToken.payload.sub}`;
     try {
-      await fetch(`/api/incomes/${id}/${user.signInUserSession.idToken.payload.sub}`, {
+      await fetch(apiUrl, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -226,8 +230,9 @@ export const GlobalProvider = ({ children }) => {
     }
   }
   async function addUser(userSub) {
+    const apiUrl = baseHttpUrl + "/api/users/";
     try {
-      await fetch(`/api/users`, {
+      await fetch(apiUrl, {
         method: "POST",
         headers: {
           Accept: "application/json",

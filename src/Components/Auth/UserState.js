@@ -38,7 +38,6 @@ export const UserProvider = ({ children }) => {
         );
       }
       if (payload.event === "signUp"){
-        console.log('hi');
       }
     });
 
