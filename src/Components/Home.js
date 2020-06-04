@@ -49,7 +49,7 @@ export const Home = () => {
     if (userSub != null && (expenses.length < 1 || incomes.length < 1)) {
         addUser(userSub);
     }
-  }, [userSub]);
+  }, [userSub, incomes, expenses]);
 
   return (
     <GlobalProvider>
