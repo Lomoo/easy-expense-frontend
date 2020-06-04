@@ -262,7 +262,6 @@ export const GlobalProvider = ({ children }) => {
         updateIncome,
         deleteIncome,
         addIncome,
-        addUser,
       }}
     >
       {children}

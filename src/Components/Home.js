@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import AppNav from "./AppNav";
 import "../App.scss";
-import { StickyAddExpense } from "./ExpenseComponents/StickyAddExpense";
 import styled from "styled-components";
 import { GlobalProvider } from "./Context/GlobalState";
 import { UserContext } from "./Auth/UserState";
@@ -21,7 +20,7 @@ const LargerContainer = styled.div.attrs({
 const Conditional = (props) => {
   return !!props.if && props.children;
 };
-
+const baseApiUrl = "";
 
 export const Home = () => {
   const { user, userLoading, userSub } = useContext(UserContext);
@@ -29,7 +28,7 @@ export const Home = () => {
 
   async function addUser(userSub) {
     try {
-      await fetch(`/api/users`, {
+      const body = await fetch(`https://easy-expense-server.herokuapp.com/api/users`, {
         method: "POST",
         headers: {
           Accept: "application/json",
