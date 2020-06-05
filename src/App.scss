@@ -10,6 +10,10 @@ $rich-black: #011627;
 $beige-light: #d0d1cd;
 $beige-lighter: #eff0eb;
 
+//Update Navbar colors
+$navbar-item-color: #7a7a7a;
+$navbar-item-hover-color: #3273dc;
+
 // Update Bulma's global variables
 $family-sans-serif: 'Nunito', sans-serif;
 $grey-dark: $charcoal;
@@ -57,3 +61,11 @@ $input-shadow: none;
 .canvas-container {
     height: 60vh;
   }
+
+.has-divider{
+    border-right: 1px solid hsla(0,0%,85.9%,.25)
+}
+
+.section{
+    padding-left: 15rem;
+}

@@ -16,7 +16,10 @@ import {
   faDrumstickBite,
   faRandom,
   faCalendar,
-  faQuestion
+  faQuestion,
+  faDesktop,
+  faUser,
+  faSignOutAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { UserProvider } from "./Components/Auth/UserState";
 
@@ -33,7 +36,10 @@ library.add(
   faDrumstickBite,
   faRandom,
   faCalendar,
-  faQuestion
+  faQuestion,
+  faDesktop,
+  faUser,
+  faSignOutAlt
 );
 
 function App() {

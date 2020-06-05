@@ -11,6 +11,8 @@ import { BudgetCard } from "./ExpenseComponents/SummaryCards/BudgetCard";
 import { IncomeExpenseTabs } from "./ExpenseComponents/AllTabs/IncomeExpenseTabs";
 import { ExpenseChartWrapper } from "./ExpenseComponents/ExpenseCharts/ExpenseChartWrapper";
 import { GlobalContext } from "./Context/GlobalState";
+import { Dashboard } from "./MainView/Dashboard";
+
 
 const LargerContainer = styled.div.attrs({
   className: "container is-fullhd",
@@ -86,6 +88,9 @@ export const Home = () => {
       <Conditional if={!user && !userLoading}>
         <div>not logging, sign in to see the good stuff</div>
       </Conditional>
+
+        <Dashboard />
+      
     </GlobalProvider>
   );
 };

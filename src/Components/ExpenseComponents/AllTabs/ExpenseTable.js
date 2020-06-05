@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, forwardRef } from "react";
+import { useQuery } from "react-query";
 import MaterialTable from "material-table";
 import { GlobalContext } from "../../Context/GlobalState";
 import AddBox from "@material-ui/icons/AddBox";
@@ -51,6 +52,10 @@ export const ExpenseTable = ({ categoryId }) => {
     addExpense,
   } = useContext(GlobalContext);
 
+  // const { data, status, error } = useQuery("films", () =>
+  //   fetch("https://swapi.dev/api/films/")
+  // );
+
   const addExpenseToRow = (newData) => {
     const newExpense = {
       id: Math.floor(Math.random() * 100000),
@@ -72,7 +77,7 @@ export const ExpenseTable = ({ categoryId }) => {
       field: "expenseAmount",
       type: "numeric",
       cellStyle: {
-        textAlign: "left"
+        textAlign: "left",
       },
     },
   ]);
@@ -88,10 +93,10 @@ export const ExpenseTable = ({ categoryId }) => {
               actions: "",
             },
             body: {
-              emptyDataSourceMessage :"Expense not found, add one to get started",
+              emptyDataSourceMessage:
+                "Expense not found, add one to get started",
             },
           }}
-          
           options={{
             search: true,
             showTitle: false,
