@@ -113,7 +113,7 @@ export default function Login() {
                       type="submit"
                       className="button is-primary is-fullwidth"
                     >
-                      Login In
+                      Login
                     </button>
                   </form>
                 </div>

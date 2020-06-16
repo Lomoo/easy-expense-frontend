@@ -19,10 +19,10 @@ import {
   faQuestion,
   faDesktop,
   faUser,
-  faSignOutAlt
+  faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { UserProvider } from "./Components/Auth/UserState";
-
+import { GlobalProvider } from "./Components/Context/GlobalState";
 library.add(
   fab,
   faCheckSquare,
@@ -45,7 +45,7 @@ library.add(
 function App() {
   return (
     <UserProvider>
-      <AppRouter />
+        <AppRouter />
     </UserProvider>
   );
 }

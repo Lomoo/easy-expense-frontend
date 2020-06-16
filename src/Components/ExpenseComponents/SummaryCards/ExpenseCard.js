@@ -1,5 +1,6 @@
 import React, { useContext  } from "react";
 import { GlobalContext } from "../../Context/GlobalState";
+import {UserContext} from "../../Auth/UserState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
@@ -25,8 +26,8 @@ const IconBox2 = styled.div.attrs({
 `;
 
 export const ExpenseCard = () => {
+  
   const { expenses } = useContext(GlobalContext);
-
   const amounts = expenses.map((expense) => expense.expenseAmount);
 
   const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
@@ -55,5 +56,3 @@ export const ExpenseCard = () => {
     </>
   );
 };
-
-export default ExpenseCard;

@@ -27,7 +27,7 @@ const LogoutNavbarButton = styled.button.attrs({
   height: unset !Important;
   border: transparent;
   color: #7a7a7a !important;
-  background-color: white !important;;
+  background-color: white !important;
 
   :visited {
     border-color: transparent;
@@ -83,20 +83,42 @@ export const AppNav = () => {
           <NavLink to="/" className="navbar-item">
             Home
           </NavLink>
-
-          {/* <div className="navbar-item has-dropdown is-hoverable">
-            <a className="navbar-link">More</a>
-            <div className="navbar-dropdown is-boxed">
-              <a className="navbar-item">About</a>
-              <a className="navbar-item">Jobs</a>
-              <a className="navbar-item">Contact</a>
-              <hr className="navbar-divider" />
-              <a className="navbar-item">Report an issue</a>
-            </div>
-          </div> */}
         </div>
 
         <div className="navbar-end">
+          <div className="navbar-item has-dropdown is-hoverable">
+            <a className="navbar-link">More</a>
+            <div className="navbar-dropdown is-boxed">
+              <NavLink to="/" className="navbar-item">
+                Dashboard
+              </NavLink>
+              <NavLink to="/expense-breakdown" className="navbar-item">
+                Your Expenses
+              </NavLink>
+              <a className="navbar-item">Income Breakdown</a>
+              <a className="navbar-item">Your Expenses</a>
+              <a className="navbar-item">Home</a>
+              <hr className="navbar-divider" />
+              <a className="navbar-item">Sign Out</a>
+            </div>
+          </div>
+
+          <Conditional if={!user && !userLoading}>
+            <div className="navbar-item has-dropdown is-hoverable">
+              <a className="navbar-link">More</a>
+              <div className="navbar-dropdown is-boxed">
+                <a className="navbar-item">About</a>
+                <a className="navbar-item">Home</a>
+                <hr className="navbar-divider" />
+                <a to="/signup" className="navbar-item">
+                  Sign Up
+                </a>
+                <a to="/login" className="navbar-item">
+                  Login{" "}
+                </a>
+              </div>
+            </div>
+          </Conditional>
           <div className="navbar-item has-divider">
             <div className="buttons">
               <Conditional if={!user && !userLoading}>

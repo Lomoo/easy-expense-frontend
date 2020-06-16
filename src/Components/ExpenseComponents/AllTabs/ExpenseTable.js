@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext, forwardRef } from "react";
-import { useQuery } from "react-query";
 import MaterialTable from "material-table";
 import { GlobalContext } from "../../Context/GlobalState";
 import AddBox from "@material-ui/icons/AddBox";
@@ -52,9 +51,7 @@ export const ExpenseTable = ({ categoryId }) => {
     addExpense,
   } = useContext(GlobalContext);
 
-  // const { data, status, error } = useQuery("films", () =>
-  //   fetch("https://swapi.dev/api/films/")
-  // );
+ 
 
   const addExpenseToRow = (newData) => {
     const newExpense = {
@@ -106,7 +103,7 @@ export const ExpenseTable = ({ categoryId }) => {
           }}
           icons={tableIcons}
           columns={columns}
-          data={expenses.filter((expense) => expense.category.id == categoryId)}
+          data={expenses.filter((expense) => expense.category.id === categoryId)}
           editable={{
             onRowAdd: (newData) =>
               new Promise((resolve, reject) => {

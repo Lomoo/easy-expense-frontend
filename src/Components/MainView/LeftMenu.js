@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { NavLink, useLocation } from "react-router-dom";
 const AsideMenu = styled.aside`
   display: flex;
   flex-direction: column;
@@ -33,17 +33,16 @@ const Menulabel = styled.p.attrs({
 `;
 
 const Menulist = styled.ul.attrs({
-    className: "menu-list",
+  className: "menu-list",
 })`
-
-    & a {
-        color: #727c8f;
-        display: block;
-    }
-    & a:hover {
-        background-color: #011627 !important;
-        color: white
-    }
+  & a {
+    color: #727c8f;
+    display: block;
+  }
+  & a:hover {
+    background-color: #011627 !important;
+    color: white;
+  }
 `;
 
 const Asidetools = styled.div`
@@ -59,6 +58,10 @@ const Asidetools = styled.div`
 `;
 
 export const LeftMenu = () => {
+  let location = useLocation();
+
+  const [isActive, setisActive] = useState(false);
+
   return (
     <AsideMenu className="menu ">
       <Asidetools>
@@ -67,28 +70,39 @@ export const LeftMenu = () => {
         </span>
       </Asidetools>
       <Menulabel>General</Menulabel>
-      <Menulist >
+      <Menulist>
         <li>
-          <a className="is-active">
+          <NavLink
+            to="/"
+            className={`${location.pathname === "/" ? "is-active" : ""}`}
+          >
             <span className="icon-tab">
               <FontAwesomeIcon icon="desktop" size="1x" />
             </span>
             <MenulistItem>Dashboard</MenulistItem>
-          </a>
+          </NavLink>
         </li>
       </Menulist>
       <Menulabel>Transactions</Menulabel>
       <Menulist>
         <li>
-          <a>
+          <NavLink
+            to="/expense-breakdown"
+            className={`${
+              location.pathname === "/expense-breakdown" ? "is-active" : ""
+            }`}
+            onClick={() => {
+              setisActive(!isActive);
+            }}
+          >
             <span className="icon-tab">
               <FontAwesomeIcon icon="money-check-alt" size="1x" />
             </span>
             <MenulistItem>Income Breakdown</MenulistItem>
-          </a>
+          </NavLink>
         </li>
         <li>
-        <a>
+          <a>
             <span className="icon-tab">
               <FontAwesomeIcon icon="coins" size="1x" />
             </span>
@@ -96,7 +110,7 @@ export const LeftMenu = () => {
           </a>
         </li>
         <li>
-        <a>
+          <a>
             <span className="icon-tab">
               <FontAwesomeIcon icon="wallet" size="1x" />
             </span>
