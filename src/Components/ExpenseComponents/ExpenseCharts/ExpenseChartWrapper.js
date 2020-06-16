@@ -22,7 +22,7 @@ box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
 export const ExpenseChartWrapper = () => {
   return (
     <div className="columns">
-      <div className="column is-two-thirds">
+      <div className="column ">
         <div className="box is-relative	">
           <StyledTab>
             <ul>
@@ -35,9 +35,6 @@ export const ExpenseChartWrapper = () => {
             <ExpenseDoughnutChart />
           </div>
         </div>
-      </div>
-      <div className="column is-one-third  ">
-        <div className="box"></div>
       </div>
     </div>
   );

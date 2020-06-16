@@ -11,6 +11,7 @@ import { BudgetCard } from "./ExpenseComponents/SummaryCards/BudgetCard";
 import { IncomeExpenseTabs } from "./ExpenseComponents/AllTabs/IncomeExpenseTabs";
 import { ExpenseChartWrapper } from "./ExpenseComponents/ExpenseCharts/ExpenseChartWrapper";
 import { GlobalContext } from "./Context/GlobalState";
+import {FirstTimePage} from "./FirstTimePage";
 
 const LargerContainer = styled.div.attrs({
   className: "container is-fullhd",
@@ -84,7 +85,7 @@ export const Home = () => {
         </section>
       </Conditional>
       <Conditional if={!user && !userLoading}>
-        <div>not logging, sign in to see the good stuff</div>
+        <FirstTimePage/>
       </Conditional>
     </GlobalProvider>
   );
